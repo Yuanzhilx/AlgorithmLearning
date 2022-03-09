@@ -6,3 +6,5 @@
 1.[稀疏数组](./src/main/java/org/example/稀疏数组/稀疏数组.md)
 
 2.[队列](./src/main/java/org/example/队列/队列.md)
+
+3.[链表](./src/main/java/org/example/链表/链表.md)
