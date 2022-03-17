@@ -1,5 +1,7 @@
 package org.example.链表;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+
 /***********************************
  *@Desc TODO
  *@ClassName SingleLinkedList
@@ -14,12 +16,22 @@ public class SingleLinkedList {
         Node node2 = new Node(2, "bbb");
         Node node3 = new Node(3, "ccc");
         Node node4 = new Node(4, "ccc");
-        SingleLinked singleLinked = new SingleLinked();
-        singleLinked.addNode(node1);
-        singleLinked.addNode(node4);
-        singleLinked.addNode(node2);
-        singleLinked.addNode(node3);
-        singleLinked.showLinkedList();
+
+        SingleLinked singleLinked1 = new SingleLinked();
+        singleLinked1.addNode(node1);
+        singleLinked1.addNode(node4);
+        singleLinked1.addNode(node2);
+        singleLinked1.addNode(node3);
+        singleLinked1.showLinkedList();
+
+        SingleLinked singleLinked2 = new SingleLinked();
+        singleLinked2.addNodeByOrder(node1);
+        singleLinked2.addNodeByOrder(node4);
+        singleLinked2.addNodeByOrder(node4);
+        singleLinked2.addNodeByOrder(node3);
+        singleLinked2.addNodeByOrder(node2);
+        singleLinked2.showLinkedList();
+
     }
 }
 //定义链表管理节点
@@ -44,7 +56,35 @@ class SingleLinked{
         //跳出循环代表temp已经指向最后节点了
         temp.next = node;
     }
+
+    public void addNodeByOrder(Node node){
+        //因为头节点不能动，我们使用一个辅助指针来找到添加的位置、
+        Node temp = headNode;
+        boolean flag = false;
+        while (true){
+            if (temp.next == null){
+                break;
+            }else if (temp.next.no > node.no){
+                break;
+            }else if (temp.next.no == node.no){
+                flag = true;
+                break;
+            }
+            temp = temp.next;
+        }
+        //判断falg
+        if (flag){
+            //说明编号存在不能添加
+            System.out.printf("准备插入的节点编号 %d 已经存在！\n",node.no);
+        }else {
+            //插入到链表中
+            node.next = temp.next;
+            temp.next = node;
+        }
+    }
+
     public void showLinkedList(){
+
         //判断是否为空
         if (headNode.next == null){
             System.out.println("链表为空！");
