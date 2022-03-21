@@ -16,7 +16,9 @@ public class SingleLinkedList {
         Node node2 = new Node(2, "bbb");
         Node node3 = new Node(3, "ccc");
         Node node4 = new Node(4, "ccc");
+        Node node5 = new Node(4, "ddd");
 
+        System.out.println("无序插入:");
         SingleLinked singleLinked1 = new SingleLinked();
         singleLinked1.addNode(node1);
         singleLinked1.addNode(node4);
@@ -24,12 +26,25 @@ public class SingleLinkedList {
         singleLinked1.addNode(node3);
         singleLinked1.showLinkedList();
 
+        System.out.println("有序插入：");
         SingleLinked singleLinked2 = new SingleLinked();
         singleLinked2.addNodeByOrder(node1);
         singleLinked2.addNodeByOrder(node4);
-        singleLinked2.addNodeByOrder(node4);
+        singleLinked2.addNodeByOrder(node5);
         singleLinked2.addNodeByOrder(node3);
         singleLinked2.addNodeByOrder(node2);
+        singleLinked2.showLinkedList();
+
+        System.out.println("以下例子以有序链表为基础");
+
+        System.out.println("修改链表的值：");
+        singleLinked2.update(node5);
+        singleLinked2.showLinkedList();
+
+        System.out.println("删除节点：");
+        singleLinked2.deleteNode(3);
+        singleLinked2.deleteNode(4);
+        singleLinked2.deleteNode(2);
         singleLinked2.showLinkedList();
 
     }
@@ -80,6 +95,48 @@ class SingleLinked{
             //插入到链表中
             node.next = temp.next;
             temp.next = node;
+        }
+    }
+    //根据编号修改节点
+    public void update(Node node){
+        if (headNode.next == null){
+            System.out.println("链表为空！");
+            return;
+        }
+        Node temp = headNode.next;
+        boolean falg = false;
+        while (true){
+            if (temp == null){
+                break;
+            }
+            if (temp.no == node.no){
+                //找到元素
+                falg = true;
+                break;
+            }
+            temp = temp.next;
+        }
+        if (falg){
+            temp.name = node.name;
+        }else {
+            System.out.printf("没有找到编号%d的节点\n",node.no);
+        }
+    }
+    //根据编号删除节点
+    public void deleteNode(int no){
+        if (headNode.next == null){
+            System.out.println("链表为空！");
+            return;
+        }
+        Node temp = headNode;
+        while (temp.next != null){
+            if (temp.next.no == no){
+                temp.next = temp.next.next;
+                if (temp.next == null){
+                    break;
+                }
+            }
+            temp = temp.next;
         }
     }
 
