@@ -41,12 +41,90 @@ public class SingleLinkedList {
         singleLinked2.update(node5);
         singleLinked2.showLinkedList();
 
+        int index = 3;
+        System.out.println("链表倒数第"+index+"位置值为:");
+        try {
+            System.out.println(getReverseOrderNode(singleLinked2.getHeadNode(),index).toString());
+        }catch (Exception e){
+            System.out.println("输入的下标不合规。");
+        }
+
+        System.out.println("链表倒序为：");
+        reversetList(singleLinked2.getHeadNode());
+        singleLinked2.showLinkedList();
+
         System.out.println("删除节点：");
         singleLinked2.deleteNode(3);
         singleLinked2.deleteNode(4);
         singleLinked2.deleteNode(2);
         singleLinked2.showLinkedList();
 
+        System.out.println("链表节点个数为：");
+        System.out.println(getLength(singleLinked2.getHeadNode()));
+
+    }
+
+    /**
+     * 反转单向链表
+     * @param head
+     */
+    public static void reversetList(Node head){
+        if (head.next == null || head.next.next == null){
+            return;
+        }
+        //辅助指针帮助我们遍历原来的链表
+        Node temp = head.next;
+        Node next = null;//指向当前[temp]节点的下一个节点
+        Node reverseHead = new Node(0,"");
+        //每遍历一个节点就将当前节点放在 reverseHead 节点的下一个
+        while (temp != null){
+            next = temp.next;
+            temp.next = reverseHead.next;
+            reverseHead.next = temp;
+            temp = next;
+        }
+        head.next = reverseHead.next;
+    }
+
+    /**
+     * 查找单链表中倒数第index个节点
+     * @param head
+     * @param index
+     * @return
+     */
+    public static Node getReverseOrderNode(Node head,int index){
+        int size = getLength(head);
+        if (head.next == null || index < 0){
+            return null;
+        }
+        int difference = size - index;
+        Node temp = head.next;
+        if (difference < 0){
+            return null;
+        }else {
+            for (int i = 0;i < difference;i++){
+                temp = temp.next;
+            }
+        }
+        return temp;
+    }
+
+    /**
+     *
+     * @param head 链表的头节点
+     * @return 单链表中有效节点的个数（如果是带头节点的需要把头节点去掉）
+     */
+    public static int getLength(Node head){
+        if (head.next == null){
+            return 0;
+        }
+        int length = 0;
+        Node temp = head.next;
+        while (temp != null){
+            length++;
+            temp = temp.next;
+        }
+        return length;
     }
 }
 //定义链表管理节点
@@ -138,6 +216,10 @@ class SingleLinked{
             }
             temp = temp.next;
         }
+    }
+
+    public Node getHeadNode() {
+        return headNode;
     }
 
     public void showLinkedList(){
