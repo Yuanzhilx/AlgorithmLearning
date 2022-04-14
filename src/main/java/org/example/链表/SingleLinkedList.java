@@ -1,6 +1,7 @@
 package org.example.链表;
 
 import javax.swing.plaf.synth.SynthOptionPaneUI;
+import java.util.Stack;
 
 /***********************************
  *@Desc TODO
@@ -53,17 +54,39 @@ public class SingleLinkedList {
         reversetList(singleLinked2.getHeadNode());
         singleLinked2.showLinkedList();
 
+        System.out.println("链表逆序打印（没有改变链表本身结构）:");
+        reversPrint(singleLinked2.getHeadNode());
+
         System.out.println("删除节点：");
         singleLinked2.deleteNode(3);
-        singleLinked2.deleteNode(4);
-        singleLinked2.deleteNode(2);
         singleLinked2.showLinkedList();
 
         System.out.println("链表节点个数为：");
         System.out.println(getLength(singleLinked2.getHeadNode()));
 
+
+
     }
 
+    /**
+     * 逆序打印单向链表
+     * @param head
+     */
+    public static void reversPrint(Node head){
+        if (head.next == null){
+            System.out.println("空链表无法打印！");
+        }
+        //将数据一个个压入栈中
+        Stack<Node> nodeStack = new Stack<>();
+        Node temp = head.next;
+        while (temp != null){
+            nodeStack.push(temp);
+            temp = temp.next;
+        }
+        while (nodeStack.size() > 0){
+            System.out.println(nodeStack.pop().toString());
+        }
+    }
     /**
      * 反转单向链表
      * @param head
