@@ -8,3 +8,7 @@
 2.[队列](./src/main/java/org/example/队列/队列.md)
 
 3.[链表](./src/main/java/org/example/链表/链表.md)
+
+4.[栈](./src/main/java/org/example/栈/栈.md)
+
+P30
