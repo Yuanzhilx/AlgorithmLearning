@@ -13,8 +13,8 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
 public class Calculator {
     public static void main(String[] args) {
         //运算式
-//        String expression = "2+2*3-2*2-1";
-        String expression = "2+6-4-1";
+        String expression = "2+2*3-2*2-1";
+//        String expression = "2+6-4-1";
         //创建两个栈，一个存放数字，一个存放符号
         ArrayStack numStack = new ArrayStack(10);
         ArrayStack operStack = new ArrayStack(10);
@@ -32,13 +32,16 @@ public class Calculator {
                 //当符号栈为空的时候直接放入
                 if (operStack.isEmpty()){
                     operStack.push(ch);
-                }else if (priority(ch) >= priority((char)operStack.showTop())){
-                    //当两个减号同时计算的时候存在bug，例如：2+6-4-1=5 会先计算4-1再计算2+6-3
+                }else if (priority(ch) > priority((char)operStack.showTop())){
                     //当符号栈中符号优先级小于等于当前符号时直接放入
                     operStack.push(ch);
                 }else {
                     //当符号栈中符号优先级大于当前符号时，取出符号和数字进行计算
                     numStack.push(cal(numStack.pop(),numStack.pop(),(char)operStack.pop()));
+                    //计算后保证只保留一个数字和操作符，规避连续减法时的问题（当两个减号同时计算的时候存在bug，例如：2+6-4-1=5 会先计算4-1再计算2+6-3）
+                    if (operStack.size() > 0 && priority(ch) <= priority((char)operStack.showTop())){
+                        numStack.push(cal(numStack.pop(),numStack.pop(),(char)operStack.pop()));
+                    }
                     operStack.push(ch);
                 }
             }else {
@@ -50,9 +53,6 @@ public class Calculator {
             }
             index++;
         }
-        numStack.list();
-        System.out.println("=============");
-        operStack.list();
         //对之前入栈的数据进行计算，一直计算到只有数栈一位数字，代表已经计算完毕
         while (numStack.size() != 1){
             numStack.push(cal(numStack.pop(),numStack.pop(),(char)operStack.pop()));
