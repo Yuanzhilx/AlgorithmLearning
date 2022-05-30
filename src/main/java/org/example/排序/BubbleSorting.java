@@ -19,13 +19,16 @@ public class BubbleSorting {
 //        int[] arr = new int[]{3,9,-1,10,-2};
 //        int[] arr = new int[]{5,4,2,1,6,7};
 //        int[] arr = new int[]{1,2,3,4,5,6,7};
-        int[] arr = new int[80];
+        int[] arr = new int[80000];
         for (int i = 0;i<arr.length;i++){
             arr[i] = (int)(Math.random()*arr.length*10);
         }
 //        Date date = new Date();
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //        System.out.println(simpleDateFormat.format(date));
+
+        System.out.println("原始数组为：");
+        System.out.println(Arrays.toString(arr));
         long startTime = System.currentTimeMillis();
         bubbleSort(arr);//O(n^2)
         long endTime = System.currentTimeMillis();
@@ -34,8 +37,6 @@ public class BubbleSorting {
         System.out.println("排序消耗时间为："+(endTime-startTime)+"ms");
     }
     private static void bubbleSort(int[] arr){
-        System.out.println("原始数组为：");
-        System.out.println(Arrays.toString(arr));
         int temp;
         boolean flag;//判断本次循环中是否有数字交换，没有交换代表已经排序成功，可以直接结束
         for (int j = 1;j < arr.length;j++){
