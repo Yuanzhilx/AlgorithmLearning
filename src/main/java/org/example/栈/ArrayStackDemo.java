@@ -1,7 +1,5 @@
 package org.example.栈;
 
-import com.sun.org.apache.xerces.internal.impl.dv.xs.FullDVFactory;
-
 /***********************************
  *@Desc TODO
  *@ClassName ArrayStackDemo
