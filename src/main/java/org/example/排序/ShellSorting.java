@@ -46,4 +46,24 @@ public class ShellSorting {
             System.out.println(Arrays.toString(arr));
         }
     }
+    //移位法
+    public static void shellSort1(int[] arr){
+        int temp;
+        int j;
+        //计算总共需要按多少次不同的步长进行排序
+        for (int length = arr.length/2;length >= 1;length/=2){
+            //从步长位开始依次向后遍历，根据有多少数据限制循环次数
+            for (int i = length;i < arr.length;i++){
+                //第j位开始遍历，每次向后移动步长个单位，依次比较两个数据大小（冒泡）
+                temp = arr[i];
+                for (j = i-length;j >= 0;j -= length){
+                    if (temp < arr[j]){
+                        arr[j+length] = arr[j];
+                    }else break;
+                }
+                arr[j+length] = temp;
+            }
+            System.out.println(Arrays.toString(arr));
+        }
+    }
 }
