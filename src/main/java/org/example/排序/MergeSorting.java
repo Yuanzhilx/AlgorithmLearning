@@ -14,8 +14,8 @@ import java.util.Arrays;
  ***********************************/
 public class MergeSorting {
     public static void main(String[] args) {
-//        int[] arr = {8,4,5,7,1,3,6,2};
-        int[] arr = {7,1,3};
+        int[] arr = {8,4,5,7,1,3,6,2};
+//        int[] arr = {7,1,3};
         int[] temp = new int[arr.length];
         mergeSort(arr,0,arr.length-1,temp);
         System.out.println(Arrays.toString(arr));
